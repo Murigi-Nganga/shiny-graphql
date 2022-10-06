@@ -1,0 +1,86 @@
+# QUERRIES
+# Example 1
+{
+  authors {
+    name
+    books {
+      name
+    }
+  }
+}
+
+# Example 2
+{
+  authors {
+    id
+    name
+  }
+}
+
+# Example 3
+{
+  books {
+    name
+    author {
+      name
+      }
+    }
+}
+
+# Example 4 - A 'combined' query
+{
+  books {
+    id
+    name
+  }
+  authors {
+    id
+    name
+  }
+}
+
+# Example 5 - A query that makes use of parameters
+{
+  book(id:1) {
+    name
+    author {
+      name
+    }
+  }
+}
+
+# Example 6 - A controversial 'cyclic' one
+{
+  books {
+    name
+    author {
+      name
+      books {
+        author {
+          name
+        }
+      }
+    }
+  }
+}
+
+
+# MUTATIONS
+# Example 1
+mutation {
+  addBook(name: "Book 15", authorId:3) {
+    id
+    name
+  }
+}
+
+#Example 2
+mutation {
+  addAuthor(name: "Ben Carson") {
+    id
+    name
+    books{
+      name
+    }
+  }
+}
