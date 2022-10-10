@@ -1,0 +1,21 @@
+$fontWeights: (
+    'bold': 900,
+    'medium': 700,
+    'regular': 400
+);
+
+@function weight($weightName) {
+    @return map-get($fontWeights, $weightName);
+}
+
+@mixin fontWeights {
+  h2 {
+    font-weight: weight('bold');
+  }
+  h3 {
+    font-weight: weight('medium');
+  }
+  p {
+    font-weight: weight('regular');
+  }
+}

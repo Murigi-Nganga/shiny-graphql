@@ -1,0 +1,43 @@
+@use "./partials/index" as styles;
+
+* {
+  font-family: Quicksand;
+}
+
+@include styles.fontWeights();
+
+#title {
+  text-align: center;
+}
+
+#graphql-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  #book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #book:nth-child(even) {
+    h3 {
+      color: styles.$primaryColor;
+      &:hover {
+        color: styles.$tertiaryColor;
+      }
+    }
+    background-color: rgba(255, 217, 0, 0.281);
+  }
+
+  #book:nth-child(odd) {
+    h3 {
+      color: styles.$secondaryColor;
+      &:hover {
+        color: styles.$primaryColor;
+      }
+    }
+    background-color: rgba(0, 183, 255, 0.281);
+  }
+}

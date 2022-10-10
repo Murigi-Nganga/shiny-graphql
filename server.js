@@ -1,5 +1,6 @@
 // import the required modules
 const express = require("express");
+const cors = require("cors");
 const { graphqlHTTP } = require("express-graphql");
 const {
   GraphQLSchema,
@@ -29,6 +30,7 @@ const books = [
   { id: 6, name: "Book 6", authorId: 2 },
   { id: 7, name: "Book 7", authorId: 3 },
   { id: 8, name: "Book 8", authorId: 3 },
+  { id: 8, name: "Book 9", authorId: 2 },
 ];
 
 const BookType = new GraphQLObjectType({
@@ -53,9 +55,7 @@ const AuthorType = new GraphQLObjectType({
     name: { type: GraphQLNonNull(GraphQLString) },
     books: {
       type: new GraphQLList(BookType),
-      resolve: (author) => {
-        return books.filter((book) => book.authorId === author.id);
-      },
+      resolve: (author) => books.filter((book) => book.authorId === author.id),
     },
   }),
 });
@@ -135,12 +135,21 @@ const graphQLAppSchema = new GraphQLSchema({
   mutation: RootMutationType,
 });
 
+// allow all origins to access the API
 app.use(
-  "/graphql",
+  cors({
+    origin: "*",
+  })
+);
+
+app.use(
+  "/api",
   graphqlHTTP({
     schema: graphQLAppSchema,
     graphiql: true,
   })
 );
 
-app.listen(port, () => console.log(`Starting server on port ${port}`));
+app.listen(port, () =>
+  console.log(`Running the server at http://localhost:${port}/api`)
+);
